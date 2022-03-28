@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+    {% include 'blog/layouts/head.html' %}
+
+<body>
+
+    {% include 'blog/components/header.html' %}
+
+    <div class="col-lg-8 offset-1">
+    <!-- Messages -->
+    {% include 'blog/components/messages.html' %}
+    <!-- end: Messages -->
+    </div>
+
+    {% block content %}{% endblock content %}
+
+    {% include 'blog/components/footer.html' %}
+    
+    {% include 'blog/components/scripts.html' %}
+
+</body>
+
+</html>

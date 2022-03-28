@@ -1,0 +1,51 @@
+{% extends 'blog/layouts/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+      <div class="row">
+        <!-- Latest Posts -->
+        <main class="posts-listing col-lg-8"> 
+          <div class="container">
+            <div class="row">
+              {{ post_list.title }}
+              {% for post in post_list %}
+              <!-- post -->
+              <div class="post col-xl-6">
+                <div class="post-thumbnail"><a href="{{ post.get_absolute_url }}"><img src="{{ post.thumbnail_url }}" alt="..." class="img-fluid"></a></div>
+                <div class="post-details">
+                  <div class="post-meta d-flex justify-content-between">
+                    <!-- <div class="date meta-last">20 May | 2016</div> -->
+                    <div class="category">
+                      {% for category in post.categories.all %}
+                        <a href="{% url 'category-list' category.slug %}">{{ category.title }}</a>
+                      {% endfor %}
+                    </div>
+                  </div><a href="{{ post.get_absolute_url }}">
+                    <h3 class="h4">{{ post.title }}</h3></a>
+                  <p class="text-muted">{{ post.overview }}</p>
+                  <footer class="post-footer d-flex align-items-center">
+                    <a href="#" class="author d-flex align-items-center flex-wrap">
+                      <div class="avatar"><img src="{{ post.author.profile_picture }}" alt="..." class="img-fluid"></div>
+                      <div class="title"><span>{{ post.author.username }}</span></div>
+                    </a>
+                    <div class="date"><i class="icon-clock"></i> {{ post.timestamp|timesince }} ago</div>
+                    <div class="comments meta-last"><i class="icon-comment"></i>{{ post.comments.count }}</div>
+                  </footer>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% include 'blog/components/pagination.html' %}
+
+          </div>
+        </main>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+        {% include 'blog/components/sidebar.html' %}
+        </div>
+      </div>
+    </div>
+{% endblock content %}
